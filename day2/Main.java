@@ -20,8 +20,13 @@ public class Main {
                 report.add(num);
             }
 
-            if ((isIncreasing(report) || isDecreasing(report)) && diffsGood(report)) {
-                count++;
+            for (int i = 0; i < report.size(); i++) {
+                int num = report.remove(i);
+                if ((isIncreasing(report) || isDecreasing(report)) && diffsGood(report)) {
+                    count++;
+                    break;
+                }
+                report.add(i, num);
             }
 
             lineScanner.close();
