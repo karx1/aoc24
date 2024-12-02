@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        File file = new File("two.txt");
+        File file = new File("input.txt");
         Scanner scanner = new Scanner(file);
 
         int count = 0;

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class One {
+public class Main {
     public static void main(String[] args) throws IOException {
-        File file = new File("one.txt");
+        File file = new File("input.txt");
         Scanner scanner = new Scanner(file);
 
         ArrayList<Integer> leftNums = new ArrayList<>();
