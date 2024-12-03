@@ -1,38 +1,37 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.nio.file.Files;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         File file = new File("input.txt");
-        Scanner scanner = new Scanner(file);
-        Pattern pattern = Pattern.compile("mul\\(\\d+,\\d+\\)");
+        String contents = Files.readString(file.toPath());
+
+        Pattern pattern = Pattern.compile("do\\(\\)|don't\\(\\)|mul\\((\\d+),(\\d+)\\)");
 
         int sum = 0;
 
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            Matcher matcher = pattern.matcher(line);
-            while (matcher.find()) {
-                String instruction = matcher.group();
-                instruction = instruction.substring(4); 
-                instruction = instruction.replace(",", " ");
-                instruction = instruction.substring(0, instruction.length() - 1);
+        boolean enabled = true;
+        Matcher matcher = pattern.matcher(contents);
 
-                Scanner instScanner = new Scanner(instruction);
-                int num1 = instScanner.nextInt();
-                int num2 = instScanner.nextInt();
-                sum += num1 * num2;
+        while (matcher.find()) {
+            String match = matcher.group(0);
+            if (match.equals("do()")) {
+                enabled = true;
+            } else if (match.equals("don't()")) {
+                enabled = false;
+            } else {
+                if (enabled) {
+                    int num1 = Integer.parseInt(matcher.group(1));
+                    int num2 = Integer.parseInt(matcher.group(2));
 
-                instScanner.close();
+                    sum += num1 * num2;
+                }
             }
         }
 
-
-        scanner.close();
         System.out.println(sum);
     }
 }
