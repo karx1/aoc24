@@ -23,29 +23,8 @@ public class Main {
             for (int j = 0; j < line.length; j++) {
                 char currentChar = line[j];
 
-                if (currentChar == 'X') {
-                    if (isUp(grid, i, j)) {
-                        count++;
-                    }
-                    if (isDown(grid, i, j)) {
-                        count++;
-                    }
-                    if (isLeft(grid, i, j)) {
-                        count++;
-                    }
-                    if (isRight(grid, i, j)) {
-                        count++;
-                    }
-                    if (isNE(grid, i, j)) {
-                        count++;
-                    }
-                    if (isSE(grid, i, j)) {
-                        count++;
-                    }
-                    if (isSW(grid, i, j)) {
-                        count++;
-                    }
-                    if (isNW(grid, i, j)) {
+                if (currentChar == 'A') {
+                    if (isX(grid, i, j)) {
                         count++;
                     }
                 }
@@ -56,60 +35,16 @@ public class Main {
         System.out.println(count);
     }
 
-    private static boolean isUp(List<char[]> grid, int row, int col) {
-        return getFrom(grid, row, col) == 'X' &&
-            getFrom(grid, row - 1, col) == 'M' &&
-            getFrom(grid, row - 2, col) == 'A' &&
-            getFrom(grid, row - 3, col) == 'S'; 
-    }
+    private static boolean isX(List<char[]> grid, int row, int col) {
+        char tl = getFrom(grid, row - 1, col - 1);
+        char tr = getFrom(grid, row - 1, col + 1);
+        char bl = getFrom(grid, row + 1, col - 1);
+        char br = getFrom(grid, row + 1, col + 1);
 
-    private static boolean isDown(List<char[]> grid, int row, int col) {
-        return getFrom(grid, row, col) == 'X' &&
-            getFrom(grid, row + 1, col) == 'M' &&
-            getFrom(grid, row + 2, col) == 'A' &&
-            getFrom(grid, row + 3, col) == 'S'; 
-    }
-
-    private static boolean isLeft(List<char[]> grid, int row, int col) {
-        return getFrom(grid, row, col) == 'X' &&
-            getFrom(grid, row, col - 1) == 'M' &&
-            getFrom(grid, row, col - 2) == 'A' &&
-            getFrom(grid, row, col - 3) == 'S';
-    }
-
-    private static boolean isRight(List<char[]> grid, int row, int col) {
-        return getFrom(grid, row, col) == 'X' &&
-            getFrom(grid, row, col + 1) == 'M' &&
-            getFrom(grid, row, col + 2) == 'A' &&
-            getFrom(grid, row, col + 3) == 'S';
-    }
-
-    private static boolean isNE(List<char[]> grid, int row, int col) {
-        return getFrom(grid, row, col) == 'X' &&
-            getFrom(grid, row - 1, col + 1) == 'M' &&
-            getFrom(grid, row - 2, col + 2) == 'A' &&
-            getFrom(grid, row - 3, col + 3) == 'S';
-    }
-
-    private static boolean isSE(List<char[]> grid, int row, int col) {
-        return getFrom(grid, row, col) == 'X' &&
-            getFrom(grid, row + 1, col + 1) == 'M' &&
-            getFrom(grid, row + 2, col + 2) == 'A' &&
-            getFrom(grid, row + 3, col + 3) == 'S';
-    }
-
-    private static boolean isSW(List<char[]> grid, int row, int col) {
-        return getFrom(grid, row, col) == 'X' &&
-            getFrom(grid, row + 1, col - 1) == 'M' &&
-            getFrom(grid, row + 2, col - 2) == 'A' &&
-            getFrom(grid, row + 3, col - 3) == 'S';
-    }
-
-    private static boolean isNW(List<char[]> grid, int row, int col) {
-        return getFrom(grid, row, col) == 'X' &&
-            getFrom(grid, row - 1, col - 1) == 'M' &&
-            getFrom(grid, row - 2, col - 2) == 'A' &&
-            getFrom(grid, row - 3, col - 3) == 'S';
+        return ((tl == 'M' && br == 'S') ||
+            (tl == 'S' && br == 'M')) &&
+            ((tr == 'M' && bl == 'S') ||
+             (tr == 'S' && bl == 'M'));
     }
 
     private static char getFrom(List<char[]> grid, int i, int j) {
